@@ -45,11 +45,11 @@ def main():
             df['HTML'] = df['SELLER_URL'].apply(extract_html)
 
             # Add new column 'Shop Name' to store shop names
-            df['Shop Name'] = df['HTML'].apply(extract_shop_name)
+            df['SELLER_NAME'] = df['HTML'].apply(extract_shop_name)
 
             # Display dataframe with Shop Name column
             st.write("Extracted Shop Names from URLs:")
-            st.write(df[['SELLER_URL', 'Shop Name']])
+            st.write(df)
 
             # Export dataframe to XLSX
             export_file = st.button("Export to XLSX")
