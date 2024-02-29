@@ -25,7 +25,7 @@ def extract_shop_name(html_code):
             return shop_name_element.text.strip()
         else:
             # Attempt to extract company name from alternative section
-            company_name_element = soup.find('a', class_='_0cNvO')
+            company_name_element = soup.find('div', class_='M3v0L _2FvVf').find('a', class_='_0cNvO')
             if company_name_element:
                 return company_name_element.text.strip()
             else:
