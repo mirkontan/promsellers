@@ -15,6 +15,18 @@ def extract_html(url):
     except Exception as e:
         return f"Error: {str(e)}"
 
+# Function to extract shop name from HTML code
+def extract_shop_name(html_code):
+    try:
+        soup = BeautifulSoup(html_code, 'html.parser')
+        shop_name_element = soup.find('h1', class_='_3Trjq')
+        if shop_name_element:
+            return shop_name_element.text.strip()
+        else:
+            return "Shop name not found"
+    except Exception as e:
+        return f"Error: {str(e)}"
+
 # Streamlit App
 def main():
     st.title("Extract HTML Code from URLs")
@@ -32,14 +44,17 @@ def main():
             # Add new column 'HTML' to store HTML code
             df['HTML'] = df['SELLER_URL'].apply(extract_html)
 
-            # Display dataframe with HTML column
-            st.write("Extracted HTML code from URLs:")
-            st.write(df)
+            # Add new column 'Shop Name' to store shop names
+            df['Shop Name'] = df['HTML'].apply(extract_shop_name)
+
+            # Display dataframe with Shop Name column
+            st.write("Extracted Shop Names from URLs:")
+            st.write(df[['SELLER_URL', 'Shop Name']])
 
             # Export dataframe to XLSX
             export_file = st.button("Export to XLSX")
             if export_file:
-                file_name = "output_with_html.xlsx"
+                file_name = "output_with_shop_names.xlsx"
                 df.to_excel(file_name, index=False)
                 st.success(f"File '{file_name}' exported successfully!")
         else:
