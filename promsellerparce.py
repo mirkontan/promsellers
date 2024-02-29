@@ -40,9 +40,11 @@ def main():
         if 'SELLER_URL' in df.columns:
             # Remove duplicates from SELLER_URL column
             df.drop_duplicates(subset=['SELLER_URL'], inplace=True)
-
+            st.write('File uploaded successfully')
+            
             # Add new column 'HTML' to store HTML code
             df['HTML'] = df['SELLER_URL'].apply(extract_html)
+            st.write('HTML extracted successfully')
 
             # Add new column 'Shop Name' to store shop names
             df['SELLER_NAME'] = df['HTML'].apply(extract_shop_name)
