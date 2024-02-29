@@ -9,12 +9,13 @@ def extract_html(url):
         response = requests.get(url)
         if response.status_code == 200:
             html_code = response.text
+            st.write(html_code)
             return html_code
         else:
             return "Error: Unable to retrieve HTML"
     except Exception as e:
         return f"Error: {str(e)}"
-
+    
 # Function to extract shop name from HTML code
 def extract_shop_name(html_code):
     try:
